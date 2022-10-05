@@ -1,0 +1,237 @@
+openapi: 3.0.3
+info:
+  title: OnlyOne
+  description: |-
+    This is the Open API specification for the Project OnlyOne
+  version: 1.0.0
+servers:
+  - url: localhost:123
+tags:
+  - name: room
+    description: Interacting with Rooms
+  - name: game
+    description: Access to Information about a Running game
+  - name: play
+    description: Playing the game and getting Information about own Cards
+paths:
+  /room:
+    get:
+      tags:
+        - room
+      summary: Get all available rooms
+      responses:
+        '200':
+          description: showing rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+
+    post:
+      tags:
+        - room
+      summary: Create a new Room
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomRequest'
+        required: true
+      responses:
+        '201':
+          description: Room Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '405':
+          description: Room already exists
+  /room/{id}:
+    post:
+      tags:
+        - room
+      summary: Join a room
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/schemas/id'
+          required: true
+      responses:
+        '200':
+          description: Joined room successfully
+
+    get:
+      tags:
+        - room
+        - game
+      summary: get Information about the Room/Game
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/id'
+      responses:
+        '200':
+          description: Displaying room Information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+
+    put:
+      tags:
+        - room
+      summary: leave a Room
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/schemas/id'
+          required: true
+      responses:
+        '200':
+          description: left room sucessfully
+
+
+  /game/{id}:
+    get:
+      tags:
+        - game
+      summary: shows the current Card and Turn
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/id'
+          description: Id of the room to get Information from
+      responses:
+        '200':
+          description: Displaying Game Information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameStatus'
+
+  /play/{id}:
+    post:
+      tags:
+        - play
+      summary: Play a card
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/id'
+      requestBody:
+        description: Card to Play
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Card'
+      responses:
+        '200':
+          description: Card was Played
+        '400':
+          description: not you turn error
+        '404':
+          description: you dont have such a card error
+    get:
+      tags:
+        - play
+      summary: View all your Cards
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/id'
+      responses:
+        '200':
+          description: Showing cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+
+  /play/{id}/new:
+    get:
+      tags:
+        - play
+      summary: Pull a Card from the Stack
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/id'
+      responses:
+        '200':
+          description: sucessfully pulled a card
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '400':
+          description: not you turn error
+
+
+
+components:
+  schemas:
+    Room:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        name:
+          type: string
+          example: "Toms cool people club"
+        player_count:
+          type: integer
+          format: int64
+          example: 4
+        max_player_count:
+          type: integer
+          format: int64
+          example: 10
+          default: 10
+        status:
+          type: string
+          example: run
+          enum: ['lobby', 'run', 'finished']
+    RoomRequest:
+      type: string
+      example: "Toms Playground"
+    id:
+      type: integer
+      format: int64
+      example: 3
+    GameStatus:
+      type: object
+      properties:
+        card:
+          $ref: '#/components/schemas/Card'
+        is_your_turn:
+          type: boolean
+          example: true
+    Card:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9
+          example: 4
+        color:
+          type: string
+          enum: ['blue','green','red','yellow']
+          example: blue
