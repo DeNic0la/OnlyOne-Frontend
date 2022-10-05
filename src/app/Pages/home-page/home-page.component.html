@@ -1,15 +1,21 @@
-<p-table [columns]="labels" [value]="products" responsiveLayout="scroll">
+<p-table [columns]="labels" [value]="rooms" responsiveLayout="scroll">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns">
-        {{col.header}}
+        {{col}}
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
+  <ng-template pTemplate="body" let-rowData>
     <tr>
-      <td *ngFor="let col of columns">
-        {{rowData[col.field]}}
+      <td>
+        {{rowData}}
+      </td>
+      <td>
+        Button
+      </td>
+      <td>
+        0/0
       </td>
     </tr>
   </ng-template>

@@ -7,6 +7,7 @@ import { HomePageComponent } from './Pages/home-page/home-page.component';
 import {CardModule} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RoomService} from "./service/room.service";
 
 
 
@@ -23,7 +24,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     CardModule,
     TableModule
   ],
-  providers: [],
+  providers: [RoomService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

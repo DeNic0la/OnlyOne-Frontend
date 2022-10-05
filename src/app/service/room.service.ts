@@ -8,7 +8,7 @@ export class RoomService {
 
   private rooms:string[] = ['Test','rolf','lala']
 
-  public getRooms():Observable<string[]>{
+  public get Rooms():Observable<string[]>{
     return of(this.rooms);
   }
   constructor() { }
