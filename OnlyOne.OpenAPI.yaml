@@ -54,6 +54,10 @@ paths:
         - room
       summary: Join a room
       parameters:
+        - in: header
+          name: x-user
+          schema:
+            type: string
         - name: id
           in: path
           schema:
@@ -69,6 +73,10 @@ paths:
         - game
       summary: get Information about the Room/Game
       parameters:
+        - in: header
+          name: x-user
+          schema:
+            type: string
         - name: id
           in: path
           required: true
@@ -87,6 +95,10 @@ paths:
         - room
       summary: leave a Room
       parameters:
+        - in: header
+          name: x-user
+          schema:
+            type: string
         - name: id
           in: path
           schema:
@@ -103,6 +115,10 @@ paths:
         - game
       summary: shows the current Card and Turn
       parameters:
+        - in: header
+          name: x-user
+          schema:
+            type: string
         - name: id
           in: path
           required: true
@@ -123,6 +139,10 @@ paths:
         - play
       summary: Play a card
       parameters:
+        - in: header
+          name: x-user
+          schema:
+            type: string
         - name: id
           in: path
           required: true
@@ -146,6 +166,10 @@ paths:
         - play
       summary: View all your Cards
       parameters:
+        - in: header
+          name: x-user
+          schema:
+            type: string
         - name: id
           in: path
           required: true
@@ -167,6 +191,10 @@ paths:
         - play
       summary: Pull a Card from the Stack
       parameters:
+        - in: header
+          name: x-user
+          schema:
+            type: string
         - name: id
           in: path
           required: true
