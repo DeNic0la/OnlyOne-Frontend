@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RoomService} from "../../service/room.service";
 import {interval, Observable, startWith, Subject, switchMap} from "rxjs";
+import {Room} from "../../service/service";
 
 @Component({
   selector: 'app-home-page',
@@ -13,7 +14,7 @@ export class HomePageComponent implements OnInit {
   }
 
 
-  public rooms:string[] = [];
+  public rooms:Room[] = [];
 
   public labels:string[] = ['Room','Join','Player Count'];
 
@@ -24,11 +25,4 @@ export class HomePageComponent implements OnInit {
     ).subscribe(res=> {console.log(res);this.rooms = res;})
 
   }
-
-  private update(){
-    this.roomService.Rooms.subscribe(value => {
-      this.rooms = value;
-    })
-  }
-
 }

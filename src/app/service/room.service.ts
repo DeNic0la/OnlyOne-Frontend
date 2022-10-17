@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import {Observable, of} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {Room} from "./service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
 
-  private rooms:string[] = ['Test','rolf','lala']
-
-  public get Rooms():Observable<string[]>{
-    return of(this.rooms);
+  get url():string{
+    return environment.url;
   }
-  constructor() { }
+
+  public get Rooms():Observable<Room[]>{
+    return this.requestinator.get<Room[]>(`${this.url}/room`);
+  }
+  constructor(private requestinator:HttpClient) { }
 }

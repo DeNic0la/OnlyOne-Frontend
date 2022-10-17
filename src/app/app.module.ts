@@ -8,6 +8,7 @@ import {CardModule} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RoomService} from "./service/room.service";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -22,7 +23,8 @@ import {RoomService} from "./service/room.service";
     AppRoutingModule,
     ToolbarModule,
     CardModule,
-    TableModule
+    TableModule,
+    HttpClientModule
   ],
   providers: [RoomService],
   bootstrap: [AppComponent]

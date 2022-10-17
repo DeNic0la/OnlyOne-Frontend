@@ -1,4 +1,4 @@
-<p-table [columns]="labels" [value]="rooms" responsiveLayout="scroll">
+<p-table [columns]="labels" [value]="rooms" responsiveLayout="scroll" styleClass="p-3">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns">
@@ -6,16 +6,16 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-rowData>
+  <ng-template pTemplate="body" let-room>
     <tr>
       <td>
-        {{rowData}}
+        {{room.name}}
       </td>
       <td>
         Button
       </td>
       <td>
-        0/0
+        {{room.player_count}}/{{room.max_player_count}}
       </td>
     </tr>
   </ng-template>
