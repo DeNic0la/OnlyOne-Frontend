@@ -13,6 +13,7 @@ import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {NAMELIX_PROVIDER, NamelixService} from "./service/namelix.service";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -33,7 +34,8 @@ import {NAMELIX_PROVIDER, NamelixService} from "./service/namelix.service";
     ButtonModule,
     HttpClientModule,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    FormsModule
   ],
   providers: [RoomService,NAMELIX_PROVIDER],
   bootstrap: [AppComponent]

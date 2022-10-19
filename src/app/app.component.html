@@ -4,7 +4,7 @@
   </div>
 
   <div class="p-toolbar-group-right">
-    <p>Here can Buttons Go</p>
+    <p-button [label]="label" (onClick)="loginPopUpOpen = true"></p-button>
   </div>
 </p-toolbar>
 <p-dialog
@@ -14,11 +14,11 @@
   <div>
     <h3>Gib dein Benutzernamen an</h3>
     <span class="p-float-label">
-      <input id="float-input"  type="text" pInputText>
+      <input id="float-input" [(ngModel)]="username" type="text" pInputText>
       <label for="float-input">Username</label>
     </span>
 
-    <p-button label="Speichern"></p-button>
+    <p-button (onClick)="saveUsername()" label="Speichern"></p-button>
   </div>
 </p-dialog>
 

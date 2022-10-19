@@ -21,10 +21,10 @@ export class NamelixService {
     else this.username = "";
   }
 
-  get name():string{
+  get uName():string{
     return this.username;
   }
-  set name(val:string) {
+  set uName(val:string) {
     this.username = val;
     localStorage.setItem("username",val);
   }
