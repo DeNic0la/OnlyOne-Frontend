@@ -16,5 +16,10 @@ export class RoomService {
   public get Rooms():Observable<Room[]>{
     return this.requestinator.get<Room[]>(`${this.url}/room`);
   }
+
+  public joinRoom(roomId:string|number) {
+    //TODO:
+    this.requestinator.post<string>(`${this.url}/room/${roomId}`,{},{headers: {}})
+  }
   constructor(private requestinator:HttpClient) { }
 }

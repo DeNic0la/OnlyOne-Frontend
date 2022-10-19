@@ -5,7 +5,8 @@ info:
     This is the Open API specification for the Project OnlyOne
   version: 1.0.0
 servers:
-  - url: localhost:123
+  - url: localhost:8080
+    description: localhost
 tags:
   - name: room
     description: Interacting with Rooms
