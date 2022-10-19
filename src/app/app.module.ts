@@ -9,6 +9,12 @@ import {TableModule} from 'primeng/table';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RoomService} from "./service/room.service";
 import {HttpClientModule} from "@angular/common/http";
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {NAMELIX_PROVIDER, NamelixService} from "./service/namelix.service";
+
+
 
 
 
@@ -24,9 +30,12 @@ import {HttpClientModule} from "@angular/common/http";
     ToolbarModule,
     CardModule,
     TableModule,
-    HttpClientModule
+    ButtonModule,
+    HttpClientModule,
+    DialogModule,
+    InputTextModule
   ],
-  providers: [RoomService],
+  providers: [RoomService,NAMELIX_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,5 +7,19 @@
     <p>Here can Buttons Go</p>
   </div>
 </p-toolbar>
+<p-dialog
+  [(visible)]="loginPopUpOpen"
+  header="Login"
+>
+  <div>
+    <h3>Gib dein Benutzernamen an</h3>
+    <span class="p-float-label">
+      <input id="float-input"  type="text" pInputText>
+      <label for="float-input">Username</label>
+    </span>
+
+    <p-button label="Speichern"></p-button>
+  </div>
+</p-dialog>
 
 <router-outlet></router-outlet>

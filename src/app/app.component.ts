@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NamelixService} from "./service/namelix.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OnlyOneAngular';
+  public loginPopUpOpen:boolean = false;
+  public username:string;
+  constructor(private nameService:NamelixService) {
+    this.username =  nameService.name;
+  }
+
 }

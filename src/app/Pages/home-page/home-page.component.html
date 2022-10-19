@@ -12,7 +12,11 @@
         {{room.name}}
       </td>
       <td>
-        Button
+        <p-button
+          [disabled]="room.player_count >= room.max_player_count"
+          label="join"
+          (onClick)="joinRoom(room.id)"
+        ></p-button>
       </td>
       <td>
         {{room.player_count}}/{{room.max_player_count}}
