@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {AppComponent} from "./app.component";
 import {HomePageComponent} from "./Pages/home-page/home-page.component";
 import {LobbyPageComponent} from "./Pages/lobby-page/lobby-page.component";
+import {GamePageComponent} from "./Pages/game-page/game-page.component";
 
 //This is my case
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'lobby/:id',
     component: LobbyPageComponent
+  },
+  {
+    path: 'game/:id',
+    component: GamePageComponent
   }
 ];
 

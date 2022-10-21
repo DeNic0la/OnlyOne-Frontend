@@ -5,6 +5,7 @@ import {interval, startWith, Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {NamelixService} from "../../service/namelix.service";
+import {HostService} from "../../service/host.service";
 
 @Component({
   selector: 'app-lobby-page',
@@ -26,7 +27,8 @@ export class LobbyPageComponent implements OnInit, OnDestroy {
     private route:ActivatedRoute,
     private router:Router,
     private msg:MessageService,
-    private naminator:NamelixService
+    private naminator:NamelixService,
+    private hostinator:HostService
   ) { }
 
   public get isHost():boolean{
@@ -53,7 +55,8 @@ export class LobbyPageComponent implements OnInit, OnDestroy {
           this.goHome().then(this.lobbyNotFoundCallback);
         }
         else if (this.room.status === "run"){
-          //TODO Redirect to Start game
+          this.router.navigate(['game',this.id]).then(value => {
+            console.log("Game Started")})
         }
       },
       error: err => {
@@ -68,6 +71,10 @@ export class LobbyPageComponent implements OnInit, OnDestroy {
     );
 
 
+  }
+
+  public startGame(){
+    this.hostinator.changeRoomState(this.id,"run");
   }
 
   ngOnDestroy(): void {
