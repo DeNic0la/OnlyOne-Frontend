@@ -1,4 +1,5 @@
 import {Injectable, Provider} from '@angular/core';
+import {HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 /**
@@ -27,6 +28,11 @@ export class NamelixService {
   set uName(val:string) {
     this.username = val;
     localStorage.setItem("username",val);
+  }
+
+  get header():HttpHeaders{
+    let httpHeaders = new HttpHeaders();
+    return httpHeaders.set("x-user",this.uName);
   }
 }
 export const NAMELIX_PROVIDER:Provider =

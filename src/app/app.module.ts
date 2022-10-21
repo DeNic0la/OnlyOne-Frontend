@@ -14,6 +14,8 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {NAMELIX_PROVIDER, NamelixService} from "./service/namelix.service";
 import {FormsModule} from "@angular/forms";
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from "primeng/api";
 
 
 
@@ -35,9 +37,10 @@ import {FormsModule} from "@angular/forms";
     HttpClientModule,
     DialogModule,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    ToastModule
   ],
-  providers: [RoomService,NAMELIX_PROVIDER],
+  providers: [RoomService,NAMELIX_PROVIDER,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

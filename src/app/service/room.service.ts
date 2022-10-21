@@ -3,6 +3,7 @@ import {Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Room} from "./service";
+import {NamelixService} from "./namelix.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,13 @@ export class RoomService {
     return environment.url;
   }
 
-  public get Rooms():Observable<Room[]>{
+  public Rooms():Observable<Room[]>{
     return this.requestinator.get<Room[]>(`${this.url}/room`);
   }
 
   public joinRoom(roomId:string|number) {
-    //TODO:
-    this.requestinator.post<string>(`${this.url}/room/${roomId}`,{},{headers: {}})
+    return this.requestinator.post<boolean>(`${this.url}/room/${roomId}`,{},{headers: this.namenator.header})
+
   }
-  constructor(private requestinator:HttpClient) { }
+  constructor(private requestinator:HttpClient,private namenator:NamelixService) { }
 }
