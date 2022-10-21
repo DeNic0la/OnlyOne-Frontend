@@ -35,12 +35,10 @@ export class HomePageComponent implements OnInit, OnDestroy{
   }
 
   public joinRoom(roomId:number){
-    // TODO: Implement
     this.roomService.joinRoom(roomId)
       .subscribe({
         next: (val) =>{
-          //TODO: FIX URL
-          this.router.navigate(['/'])
+          this.router.navigate(['lobby',roomId])
         },
         error:  err => {
           const erro:Message = {closable:true, severity: "error", summary: "Error",detail:"Dem Raum konnte nicht beigetreten werden."}

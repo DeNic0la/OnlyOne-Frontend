@@ -16,6 +16,7 @@ import {NAMELIX_PROVIDER, NamelixService} from "./service/namelix.service";
 import {FormsModule} from "@angular/forms";
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from "primeng/api";
+import { LobbyPageComponent } from './Pages/lobby-page/lobby-page.component';
 
 
 
@@ -24,7 +25,8 @@ import {MessageService} from "primeng/api";
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    LobbyPageComponent
   ],
   imports: [
     BrowserModule,

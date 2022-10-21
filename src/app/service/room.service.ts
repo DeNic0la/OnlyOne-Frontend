@@ -14,13 +14,16 @@ export class RoomService {
     return environment.url;
   }
 
+  public Room(id:string|number):Observable<Room>{
+    return this.requestinator.get<Room>(`${this.url}/room/${id}`)
+  }
+
   public Rooms():Observable<Room[]>{
     return this.requestinator.get<Room[]>(`${this.url}/room`);
   }
 
   public joinRoom(roomId:string|number) {
     return this.requestinator.post<boolean>(`${this.url}/room/${roomId}`,{},{headers: this.namenator.header})
-
   }
   constructor(private requestinator:HttpClient,private namenator:NamelixService) { }
 }
