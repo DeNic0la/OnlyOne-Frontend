@@ -34,6 +34,10 @@ export class HomePageComponent implements OnInit, OnDestroy{
     if (this.sub) this.sub.unsubscribe()
   }
 
+  public createLobby(){
+    this.roomService.createRoom();
+  }
+
   public joinRoom(roomId:number){
     this.roomService.joinRoom(roomId)
       .subscribe({

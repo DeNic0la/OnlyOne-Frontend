@@ -6,4 +6,5 @@ export interface Room {
   player_count:number;
   max_player_count:number;
   status: roomStatus;
+  host: string;
 }
