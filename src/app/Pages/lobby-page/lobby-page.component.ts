@@ -4,6 +4,7 @@ import {Room} from "../../service/service";
 import {interval, startWith, Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {NamelixService} from "../../service/namelix.service";
 
 @Component({
   selector: 'app-lobby-page',
@@ -24,8 +25,13 @@ export class LobbyPageComponent implements OnInit, OnDestroy {
     private roomService:RoomService,
     private route:ActivatedRoute,
     private router:Router,
-    private msg:MessageService
+    private msg:MessageService,
+    private naminator:NamelixService
   ) { }
+
+  public get isHost():boolean{
+    return <boolean> (this.room && (this.room.host) && (this.room.host === this.naminator.uName));
+  }
 
   private async goHome(): Promise<void> {
     await this.router.navigate(['/'])
@@ -45,6 +51,9 @@ export class LobbyPageComponent implements OnInit, OnDestroy {
         if (this.room === undefined || this.room === null || this.room.id === undefined || this.room.id === null || this.room.id <= 0){
           this.lobbyNotFoundCallback();
           this.goHome().then(this.lobbyNotFoundCallback);
+        }
+        else if (this.room.status === "run"){
+          //TODO Redirect to Start game
         }
       },
       error: err => {

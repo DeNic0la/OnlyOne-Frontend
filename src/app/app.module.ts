@@ -17,6 +17,7 @@ import {FormsModule} from "@angular/forms";
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from "primeng/api";
 import { LobbyPageComponent } from './Pages/lobby-page/lobby-page.component';
+import { GamePageComponent } from './Pages/game-page/game-page.component';
 
 
 
@@ -26,7 +27,8 @@ import { LobbyPageComponent } from './Pages/lobby-page/lobby-page.component';
   declarations: [
     AppComponent,
     HomePageComponent,
-    LobbyPageComponent
+    LobbyPageComponent,
+    GamePageComponent
   ],
   imports: [
     BrowserModule,
