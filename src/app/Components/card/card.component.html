@@ -1,27 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700">
-  <defs>
-    <style>.cls-1 {
-      fill: #fff;
-    }
-
-    .cls-2 {
-      fill: red;
-    }
-
-    .cls-3 {
-      font-size: 300px;
-      font-family: MyriadPro-Regular, Myriad Pro;
-    }</style>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" [attr.width]="cardWidth" viewBox="0 0 500 700">
   <g id="Ebene_1" data-name="Ebene 1">
-    <rect class="cls-1" x="5" y="5" width="490" height="690" rx="76.129"/>
+    <rect class="card-bg" x="5" y="5" width="490" height="690" rx="76.129"/>
     <path
       d="M418.871,10A71.209,71.209,0,0,1,490,81.129V618.871A71.209,71.209,0,0,1,418.871,690H81.129A71.209,71.209,0,0,1,10,618.871V81.129A71.209,71.209,0,0,1,81.129,10H418.871m0-10H81.129A81.129,81.129,0,0,0,0,81.129V618.871A81.129,81.129,0,0,0,81.129,700H418.871A81.129,81.129,0,0,0,500,618.871V81.129A81.129,81.129,0,0,0,418.871,0Z"/>
   </g>
   <g id="Ebene_2" data-name="Ebene 2">
-    <polygon class="cls-2" points="0 74.806 361.452 74.806 287.129 218.419 0 218.419 0 74.806"/>
-    <polygon class="cls-2" points="500 481.516 216.419 481.516 144.677 625.516 500 625.516 500 481.516"/>
-    <text class="cls-3" transform="translate(173.052 438.051)">7</text>
+    <polygon class="{{ cardColorClass }}" points="0 74.806 361.452 74.806 287.129 218.419 0 218.419 0 74.806"/>
+    <polygon class="{{ cardColorClass }}" points="500 481.516 216.419 481.516 144.677 625.516 500 625.516 500 481.516"/>
+    <text class="text" transform="translate(173.052 438.051)"> {{ number }} </text>
   </g>
   <g id="Ebene_3" data-name="Ebene 3">
     <path
