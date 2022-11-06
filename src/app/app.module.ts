@@ -19,6 +19,7 @@ import {MessageService} from "primeng/api";
 import { LobbyPageComponent } from './Pages/lobby-page/lobby-page.component';
 import { GamePageComponent } from './Pages/game-page/game-page.component';
 import { CardComponent } from './Components/card/card.component';
+import {DockModule} from 'primeng/dock';
 
 
 
@@ -44,7 +45,8 @@ import { CardComponent } from './Components/card/card.component';
     DialogModule,
     InputTextModule,
     FormsModule,
-    ToastModule
+    ToastModule,
+    DockModule
   ],
   providers: [RoomService,NAMELIX_PROVIDER,MessageService],
   bootstrap: [AppComponent]
