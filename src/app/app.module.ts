@@ -18,6 +18,7 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from "primeng/api";
 import { LobbyPageComponent } from './Pages/lobby-page/lobby-page.component';
 import { GamePageComponent } from './Pages/game-page/game-page.component';
+import { CardComponent } from './Components/card/card.component';
 
 
 
@@ -28,7 +29,8 @@ import { GamePageComponent } from './Pages/game-page/game-page.component';
     AppComponent,
     HomePageComponent,
     LobbyPageComponent,
-    GamePageComponent
+    GamePageComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
