@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+
+.card-bg {
+  fill: #fff;
+}
+
+.card-col-undefined {
+  fill: gray;
+}
+.card-col-red{
+  fill: red;
+}
+.card-col-green{
+  fill: green;
+}
+.card-col-blue{
+  fill: blue;
+}
+.card-col-yellow{
+  fill: yellow;
+}
+
+.text {
+  font-size: 300px;
+  font-family: 'Kanit', sans-serif;
+}
