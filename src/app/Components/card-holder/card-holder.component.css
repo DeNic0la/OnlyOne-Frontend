@@ -1,0 +1,31 @@
+.holder-container {
+  bottom: 0;
+  position: absolute;
+  width: 80vw;
+  padding-left: 10vw
+
+}
+.card-list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1vw;
+}
+
+.le-card{
+  transform-origin: center bottom;
+}
+.selected {
+  transform: scale(1.6);
+  z-index: 4;
+}
+.next{
+  transform: scale(1.4);
+  z-index: 3;
+}
+.over-next{
+  transform: scale(1.2);
+  z-index: 2;
+
+}

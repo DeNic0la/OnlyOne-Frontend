@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CardColor, CardNumber} from "../../Components/card/card.types";
+import {Card, CardColor, CardNumber} from "../../Components/card/card.types";
 
 @Component({
   selector: 'app-game-page',
@@ -53,7 +53,4 @@ export class GamePageComponent implements OnInit {
   }
 
 }
-export interface Card {
-  number:CardNumber;
-  color:CardColor;
-}
+
