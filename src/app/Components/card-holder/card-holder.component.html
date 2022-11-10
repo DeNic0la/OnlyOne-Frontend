@@ -1,0 +1,14 @@
+<div class="holder-container">
+  <div class="card-list"
+       (mouseleave)="index = -3"
+  >
+    <app-card
+      *ngFor="let card of cards; let i = index"
+      [cardWidth]="100"
+      [ngClass]="itemClass(i)"
+      [color]="card.color"
+      [number]="card.number"
+      (mouseenter)="index=i"
+    ></app-card>
+  </div>
+</div>

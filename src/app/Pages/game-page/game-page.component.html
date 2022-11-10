@@ -1,9 +1,4 @@
 
 <div class="flex flex-row gap-4 flex-wrap">
-  <app-card
-    *ngFor="let card of cards"
-    [cardWidth]="100"
-    [color]="card.color"
-    [number]="card.number"
-  ></app-card>
+  <app-card-holder [cards]="cards"></app-card-holder>
 </div>
