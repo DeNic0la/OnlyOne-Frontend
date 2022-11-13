@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CardColor, CardNumber} from "./card.types";
+import {CardColor, CardNumber} from "../../types/card.types";
 
 @Component({
   selector: 'app-card',

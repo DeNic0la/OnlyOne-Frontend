@@ -4,6 +4,7 @@ import {AppComponent} from "./app.component";
 import {HomePageComponent} from "./Pages/home-page/home-page.component";
 import {LobbyPageComponent} from "./Pages/lobby-page/lobby-page.component";
 import {GamePageComponent} from "./Pages/game-page/game-page.component";
+import {CardResolver} from "./Resolvers/card.resolver";
 
 //This is my case
 const routes: Routes = [
@@ -17,7 +18,10 @@ const routes: Routes = [
   },
   {
     path: 'game/:id',
-    component: GamePageComponent
+    component: GamePageComponent,
+    resolve: {
+      cards: CardResolver
+    }
   }
 ];
 
