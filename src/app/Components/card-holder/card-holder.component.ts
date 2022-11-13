@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Card} from "../card/card.types";
+import {Card} from "../../types/card.types";
 
 @Component({
   selector: 'app-card-holder',
