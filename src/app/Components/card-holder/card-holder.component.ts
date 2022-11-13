@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from "../../types/card.types";
 
 @Component({
@@ -13,7 +13,17 @@ export class CardHolderComponent implements OnInit {
    */
   @Input() cards:Card[] = [];
 
+  @Input() isLoading:boolean = false;
+
+  @Output() playCard = new EventEmitter<number>()
+
   public index:number = -3;
+
+  public onCardClick(index:number){
+    if (this.isLoading)
+      return;
+    this.playCard.emit(index)
+  }
 
   constructor() { }
 

@@ -8,6 +8,7 @@
       [ngClass]="itemClass(i)"
       [color]="card.color"
       [number]="card.number"
+      (click)="onCardClick(i)"
       (mouseenter)="index=i"
     ></app-card>
   </div>

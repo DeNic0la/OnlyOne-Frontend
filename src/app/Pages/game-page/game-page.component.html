@@ -1,4 +1,4 @@
-
+<p-button label="Draw Card" (onClick)="drawCard()"></p-button>
 <div class="flex flex-row gap-4 flex-wrap">
-  <app-card-holder [cards]="cards"></app-card-holder>
+  <app-card-holder [isLoading]="isLoading" (playCard)="playCard($event)" [cards]="cards"></app-card-holder>
 </div>
