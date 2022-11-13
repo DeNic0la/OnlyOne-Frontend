@@ -8,8 +8,8 @@ import {CardColor, CardNumber} from "../../types/card.types";
 })
 export class CardComponent implements OnInit {
 
-  @Input() color:CardColor|undefined;
-  @Input() number:CardNumber|undefined;
+  @Input() color:CardColor;
+  @Input() number:CardNumber;
   @Input() cardWidth:number|undefined = 300;
 
   get cardColorClass():string {
