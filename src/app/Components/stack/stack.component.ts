@@ -6,16 +6,9 @@ import {Card} from "../../types/card.types";
   templateUrl: './stack.component.html',
   styleUrls: ['./stack.component.css']
 })
-export class StackComponent implements OnInit, OnChanges {
+export class StackComponent implements OnInit {
 
-  @Input() cardStack:Card[] = [];
-
-  public topCard:Card = {color: undefined,number: undefined};
-
-  ngOnChanges(changes: SimpleChanges) {
-    const newCard = this.cardStack[0];
-    this.topCard = newCard ? newCard : this.topCard;
-  }
+  @Input() topCard:Card = {color: undefined,number: undefined};
 
   constructor() { }
 

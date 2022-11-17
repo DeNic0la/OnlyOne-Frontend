@@ -1,5 +1,5 @@
 <p-button label="Draw Card" (onClick)="drawCard()"></p-button>
-<app-stack [cardStack]="cardStack"></app-stack>
+<app-stack [topCard]="topCard"></app-stack>
 <div class="flex flex-row gap-4 flex-wrap">
   <app-card-holder [isYourTurn]="isYourTurn" [isLoading]="isLoading" (playCard)="playCard($event)" [cards]="cards"></app-card-holder>
 </div>

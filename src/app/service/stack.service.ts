@@ -1,30 +1,23 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Card} from "../types/card.types";
-import {delay, Observable, Subject} from "rxjs";
+import {delay, map, mapTo, Observable, Subject, switchMap} from "rxjs";
 import {getRandomCard} from "../Util/card.util";
+import {GameInfo} from "./service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StackService implements OnInit{
-  /**
-   * This function just is here until se Backend wörks
-   * @param card
-   */
-  public playCard(card:Card){
-    this.internalCardStack = [card, ...this.internalCardStack];
-    this.cardStackSubject.next(this.internalCardStack)
+
+
+  public getCardObs(obs:Observable<GameInfo>){
+    return obs.pipe(
+      map((value) =>  { return value.card})
+    )
   }
-
-  private cardStackSubject:Subject<Card[]> = new Subject();
-
-  public cardStack:Observable<Card[]> = this.cardStackSubject./*Mock*/pipe(delay(1000));
-
-  private internalCardStack:Card[] = [getRandomCard()];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.cardStackSubject.next(this.internalCardStack);
   }
 }
