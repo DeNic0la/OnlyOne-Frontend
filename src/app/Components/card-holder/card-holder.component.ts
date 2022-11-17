@@ -15,12 +15,14 @@ export class CardHolderComponent implements OnInit {
 
   @Input() isLoading:boolean = false;
 
+  @Input() isYourTurn:boolean = false;
+
   @Output() playCard = new EventEmitter<number>()
 
   public index:number = -3;
 
   public onCardClick(index:number){
-    if (this.isLoading)
+    if (this.isLoading || !this.isYourTurn)
       return;
     this.playCard.emit(index)
   }

@@ -21,6 +21,7 @@ import { GamePageComponent } from './Pages/game-page/game-page.component';
 import { CardComponent } from './Components/card/card.component';
 import {DockModule} from 'primeng/dock';
 import { CardHolderComponent } from './Components/card-holder/card-holder.component';
+import { StackComponent } from './Components/stack/stack.component';
 
 
 
@@ -33,7 +34,8 @@ import { CardHolderComponent } from './Components/card-holder/card-holder.compon
     LobbyPageComponent,
     GamePageComponent,
     CardComponent,
-    CardHolderComponent
+    CardHolderComponent,
+    StackComponent
   ],
   imports: [
     BrowserModule,
