@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Card} from "../types/card.types";
-import {delay, map, mapTo, Observable, Subject, switchMap} from "rxjs";
+import {delay, map, mapTo, Observable, shareReplay, Subject, switchMap} from "rxjs";
 import {getRandomCard} from "../Util/card.util";
 import {GameInfo} from "./service";
 
@@ -10,9 +10,10 @@ import {GameInfo} from "./service";
 export class StackService implements OnInit{
 
 
-  public getCardObs(obs:Observable<GameInfo>){
+  public getCardObs(obs:Observable<GameInfo>):Observable<Card>{
     return obs.pipe(
-      map((value) =>  { return value.card})
+      map((value) =>  { return value.card}),
+      shareReplay(1)
     )
   }
 

@@ -6,6 +6,7 @@ import {delay, of, tap} from "rxjs";
 import {StackService} from "../../service/stack.service";
 import {MessageService} from "primeng/api";
 import {GameService} from "../../service/game.service";
+import {TurnService} from "../../service/turn.service";
 
 @Component({
   selector: 'app-game-page',
@@ -63,7 +64,7 @@ export class GamePageComponent implements OnInit {
     this.msg.add({summary: "Lobby nicht gefunden", detail: "Die angegebene Lobby wurde nicht gefunden",severity:"error",life:3000})
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private Stack:StackService, private route:ActivatedRoute, private router:Router,private msg:MessageService, private Game:GameService) { }
+  constructor(private activatedRoute: ActivatedRoute, private Stack:StackService, private route:ActivatedRoute, private router:Router,private msg:MessageService, private Game:GameService, private Turn:TurnService) { }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({cards})=>{
@@ -73,9 +74,15 @@ export class GamePageComponent implements OnInit {
     if (this.id.trim() === ""){
       this.goHome().then(this.lobbyNotFoundCallback)
     }
+
     let obs = this.Game.joinGame(this.id);
+
+    obs.subscribe(value => console.dir(value))
     //TODO UNSUB
     this.Stack.getCardObs(obs).subscribe(value => this.topCard = value);
+
+    this.Turn.getCardObs(obs).subscribe(value => this.isYourTurn = value);
+
   }
 
 }

@@ -22,8 +22,10 @@ export class CardHolderComponent implements OnInit {
   public index:number = -3;
 
   public onCardClick(index:number){
-    if (this.isLoading || !this.isYourTurn)
+    if (this.isLoading || !this.isYourTurn){
+      alert("AAA");
       return;
+    }
     this.playCard.emit(index)
   }
 
