@@ -34,9 +34,6 @@ export class GamePageComponent implements OnInit {
     this.cards = [...this.cards, getRandomCard()];
   }
 
-  get topCard():Card{
-    return this.cardStack[0];
-  }
 
   public playCard(index:number){
     if (!this.id)
@@ -87,7 +84,7 @@ export class GamePageComponent implements OnInit {
     this.activatedRoute.data.subscribe(({cards})=>{
       this.cards = cards;
     });
-    
+
     this.id = (this.route.snapshot.paramMap.get('id') || "");
     if (this.id.trim() === ""){
       this.goHome().then(this.lobbyNotFoundCallback)
