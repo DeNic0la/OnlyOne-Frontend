@@ -8,6 +8,7 @@ import {MessageService} from "primeng/api";
 import {GameService} from "../../service/game.service";
 import {TurnService} from "../../service/turn.service";
 
+
 @Component({
   selector: 'app-game-page',
   templateUrl: './game-page.component.html',
@@ -25,11 +26,16 @@ export class GamePageComponent implements OnInit {
 
   public topCard:Card = {number: undefined, color: undefined};
 
+
   /**
    * Draw a new card from the Stack
    */
   public drawCard(){
     this.cards = [...this.cards, getRandomCard()];
+  }
+
+  get topCard():Card{
+    return this.cardStack[0];
   }
 
   public playCard(index:number){
@@ -62,6 +68,7 @@ export class GamePageComponent implements OnInit {
         this.cards = loadingCards;
         alert("AAAA") // TODO ERROR
       },
+
     })
   }
 
@@ -75,10 +82,12 @@ export class GamePageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private Stack:StackService, private route:ActivatedRoute, private router:Router,private msg:MessageService, private Game:GameService, private Turn:TurnService) { }
 
+
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({cards})=>{
       this.cards = cards;
     });
+    
     this.id = (this.route.snapshot.paramMap.get('id') || "");
     if (this.id.trim() === ""){
       this.goHome().then(this.lobbyNotFoundCallback)
@@ -91,6 +100,7 @@ export class GamePageComponent implements OnInit {
     this.Stack.getCardObs(obs).subscribe(value => this.topCard = value);
 
     this.Turn.getCardObs(obs).subscribe(value => this.isYourTurn = value);
+
 
   }
 

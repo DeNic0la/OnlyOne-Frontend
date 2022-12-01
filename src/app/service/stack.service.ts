@@ -4,11 +4,11 @@ import {delay, map, mapTo, Observable, shareReplay, Subject, switchMap} from "rx
 import {getRandomCard} from "../Util/card.util";
 import {GameInfo} from "./service";
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class StackService implements OnInit{
-
 
   public getCardObs(obs:Observable<GameInfo>):Observable<Card>{
     return obs.pipe(

@@ -6,6 +6,7 @@ import {Card} from "../../types/card.types";
   templateUrl: './stack.component.html',
   styleUrls: ['./stack.component.css']
 })
+
 export class StackComponent implements OnInit {
 
   @Input() topCard:Card = {color: undefined,number: undefined};
