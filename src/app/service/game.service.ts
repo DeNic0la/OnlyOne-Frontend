@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {GameInfo} from "./service";
 import {distinctUntilChanged, interval, Observable, shareReplay, switchAll, switchMap} from "rxjs";
 import {NamelixService} from "./namelix.service";
+import {Card} from "../types/card.types";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,9 @@ export class GameService {
     return (a.card.color === b.card.color && a.card.number === b.card.number)
   }
 
-
+  public playCard(id:number|string, card:optionalCard): Observable<void> {
+    return this.requestinator.post<void>(`${this.url}/play/${id}`, card,{headers: this.namenator.header})
+  }
 
 }
+type optionalCard = Card | {};
