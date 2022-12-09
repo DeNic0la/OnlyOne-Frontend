@@ -12,7 +12,7 @@
    "postCreateComman": "npm i",
   
     "portsAttributes": {
-      "3000": {
+      "4200": {
         "label": "Application",
         "onAutoForward": "openPreview"
       }
