@@ -75,7 +75,8 @@
               "browserTarget": "OnlyOneAngular:build:production"
             },
             "development": {
-              "browserTarget": "OnlyOneAngular:build:development"
+              "browserTarget": "OnlyOneAngular:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
