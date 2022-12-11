@@ -7,6 +7,7 @@ import {StackService} from "../../service/stack.service";
 import {MessageService} from "primeng/api";
 import {GameService} from "../../service/game.service";
 import {TurnService} from "../../service/turn.service";
+import {RoomService} from "../../service/room.service";
 
 
 @Component({
@@ -20,6 +21,8 @@ export class GamePageComponent implements OnInit {
 
   public isLoading:boolean = false;
 
+  public hasDrawnCard:boolean = false;
+
   public isYourTurn:boolean = true;
 
   private id: string | undefined;
@@ -32,6 +35,7 @@ export class GamePageComponent implements OnInit {
    */
   public drawCard(){
     this.cards = [...this.cards, getRandomCard()];
+    this.hasDrawnCard = true;
   }
 
 
@@ -49,21 +53,23 @@ export class GamePageComponent implements OnInit {
     const loadingCards = this.cards;
     loadingCards[index] = {color: undefined,number: undefined};
     this.cards = loadingCards;
-    // TODO make play Card here
-    //this.Stack.playCard(cardToPlay);
+
 
     this.Game.playCard(this.id, cardToPlay).subscribe({
       next: ()=>{
         loadingCards.splice(index,1)
         this.cards = loadingCards;
         this.isLoading = false;
+        this.hasDrawnCard = false;
+        this.checkForWin();
       },
-      error: ()=>{
+      error: (err:any)=>{
         this.isLoading = false;
         // Add card back to stack
         loadingCards[index] = cardToPlay;
         this.cards = loadingCards;
-        alert("AAAA") // TODO ERROR
+        console.log(err)
+        alert(err) // TODO ERROR
       },
 
     })
@@ -73,11 +79,38 @@ export class GamePageComponent implements OnInit {
     await this.router.navigate(['/'])
   }
 
+  private checkForWin(){
+    if (this.cards.length === 0){
+      alert("Congratulations you are a winner")
+
+      this.leaveLobby()
+      this.goHome().then(value => {console.log("Win")})
+    }
+  }
+
+  public endTurn(){
+    if (this.id){
+      this.Game.playCard(this.id, {}).subscribe(value => {
+        console.log(value);
+        this.hasDrawnCard = false;
+      })
+    }
+    else {
+      alert("You are not in a room")
+    }
+  }
+
   private lobbyNotFoundCallback: ()=>void = ()=>{
     this.msg.add({summary: "Lobby nicht gefunden", detail: "Die angegebene Lobby wurde nicht gefunden",severity:"error",life:3000})
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private Stack:StackService, private route:ActivatedRoute, private router:Router,private msg:MessageService, private Game:GameService, private Turn:TurnService) { }
+  private leaveLobby(){
+    if (this.id)
+      this.roomService.leave(this.id).subscribe(value => {
+        console.log(value);})
+  }
+
+  constructor(private activatedRoute: ActivatedRoute, private Stack:StackService, private route:ActivatedRoute, private router:Router,private msg:MessageService, private Game:GameService, private Turn:TurnService,private roomService:RoomService) { }
 
 
   ngOnInit(): void {

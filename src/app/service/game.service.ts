@@ -29,11 +29,11 @@ export class GameService {
   }
 
   private isEquals(a:GameInfo,b:GameInfo):boolean {
-    return (a.card.color === b.card.color && a.card.number === b.card.number)
+    return (a.card.color === b.card.color && a.card.number === b.card.number && a.is_your_turn === b.is_your_turn)
   }
 
-  public playCard(id:number|string, card:optionalCard): Observable<void> {
-    return this.requestinator.post<void>(`${this.url}/play/${id}`, card,{headers: this.namenator.header})
+  public playCard(id:number|string, card:optionalCard): Observable<any> {
+    return this.requestinator.post<any>(`${this.url}/play/${id}`, card,{headers: this.namenator.header})
   }
 
 }

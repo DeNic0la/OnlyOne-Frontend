@@ -40,5 +40,9 @@ export class RoomService {
   public joinRoom(roomId:string|number) {
     return this.requestinator.post<boolean>(`${this.url}/room/${roomId}`,{},{headers: this.namenator.header})
   }
+
+  public leave(roomId: string|number){
+    return this.requestinator.put(`${this.url}/room/${roomId}`,null)
+  }
   constructor(private requestinator:HttpClient,private namenator:NamelixService,private router:Router) { }
 }
