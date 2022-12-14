@@ -1,3 +1,5 @@
+<p-button *ngIf="id" label="Leave" class="p-button-danger" (onClick)="quitLobby()"></p-button>
+
 <div *ngIf="isYourTurn">
   <p-button *ngIf="!hasDrawnCard" label="Draw Card" (onClick)="drawCard()"></p-button>
   <p-button *ngIf="hasDrawnCard" label="End Turn" class="p-button-warning" (onClick)="endTurn()"></p-button>

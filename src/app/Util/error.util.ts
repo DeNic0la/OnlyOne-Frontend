@@ -5,6 +5,6 @@ export function callError(service:MessageService, summary:string,detail:string) 
   service.add(mesage);
 }
 export function callWarning(service:MessageService, summary:string,detail:string){
-  const mesage:Message = {summary,detail,severity:"warning",life:3000}
+  const mesage:Message = {summary,detail,severity:"warning",life:5000}
   service.add(mesage);
 }

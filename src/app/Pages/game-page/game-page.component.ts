@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {Card, CardColor, CardNumber} from "../../types/card.types";
 import {ActivatedRoute, Router} from "@angular/router";
 import {getRandomCard} from "../../Util/card.util";
-import {delay, of, tap} from "rxjs";
+import {catchError, delay, map, Observable, of, tap} from "rxjs";
 import {StackService} from "../../service/stack.service";
 import {MessageService} from "primeng/api";
 import {GameService} from "../../service/game.service";
 import {TurnService} from "../../service/turn.service";
 import {RoomService} from "../../service/room.service";
+import {callError, callWarning} from "../../Util/error.util";
 
 
 @Component({
@@ -25,7 +26,7 @@ export class GamePageComponent implements OnInit {
 
   public isYourTurn:boolean = true;
 
-  private id: string | undefined;
+  public id: string | undefined;
 
   public topCard:Card = {number: undefined, color: undefined};
 
@@ -69,7 +70,7 @@ export class GamePageComponent implements OnInit {
         loadingCards[index] = cardToPlay;
         this.cards = loadingCards;
         console.log(err)
-        alert(err) // TODO ERROR
+        callError(this.msg,"Die Karte konnte nicht gespielt werden","Möglicherweise ist es nicht dein Zug oder eine ungültige Karte")
       },
 
     })
@@ -81,7 +82,7 @@ export class GamePageComponent implements OnInit {
 
   private checkForWin(){
     if (this.cards.length === 0){
-      alert("Congratulations you are a winner")
+      this.msg.add({summary:"Du bist ein Gewinner",detail:"Du hast alle Karten gespielt und somit gewonnen",life:10000,severity:"success"})
 
       this.leaveLobby()
       this.goHome().then(value => {console.log("Win")})
@@ -91,12 +92,11 @@ export class GamePageComponent implements OnInit {
   public endTurn(){
     if (this.id){
       this.Game.playCard(this.id, {}).subscribe(value => {
-        console.log(value);
         this.hasDrawnCard = false;
       })
     }
     else {
-      alert("You are not in a room")
+      callError(this.msg,"You are not in a room","No valid room");
     }
   }
 
@@ -104,10 +104,45 @@ export class GamePageComponent implements OnInit {
     this.msg.add({summary: "Lobby nicht gefunden", detail: "Die angegebene Lobby wurde nicht gefunden",severity:"error",life:3000})
   }
 
+  public quitLobby(){
+    this.leaveLobby();
+    this.goHome().then(value => {console.log("Leave")})
+  }
+
   private leaveLobby(){
     if (this.id)
       this.roomService.leave(this.id).subscribe(value => {
         console.log(value);})
+  }
+
+  private checkForLose(err:any){
+    this.isGameLose().subscribe({ next: value => {
+      if (value){
+        callWarning(this.msg,"You lost","Du hast das Spiel verloren");
+
+      }
+      else {
+        callWarning(this.msg,"Möglicherweise liegt ein Problem vor", "Sollte diese Meldung mehrmals erscheinen liegt ein Problem mit der Netzwerkverbindung oder dem Server vor");
+      }
+    },
+    error: err1 => {console.dir(err1)}
+    })
+
+  }
+
+  /**
+   * Checks if the game is lost, returns true if lost.
+   * @private
+   */
+  private isGameLose():Observable<boolean>{
+    if (this.id){
+      return this.roomService.Room(this.id).pipe(
+        map(value => {return (value.status === "finished")}),
+        catchError(err => {return of(err.status === 404 ||err.status === "404")}),
+      )
+    }
+    return of(false)
+
   }
 
   constructor(private activatedRoute: ActivatedRoute, private Stack:StackService, private route:ActivatedRoute, private router:Router,private msg:MessageService, private Game:GameService, private Turn:TurnService,private roomService:RoomService) { }
@@ -125,11 +160,16 @@ export class GamePageComponent implements OnInit {
 
     let obs = this.Game.joinGame(this.id);
 
-    obs.subscribe(value => console.dir(value))
     //TODO UNSUB
-    this.Stack.getCardObs(obs).subscribe(value => this.topCard = value);
+    this.Stack.getCardObs(obs).subscribe({
+      next: value => this.topCard = value,
+      error: err => this.checkForLose(err)
+    })
 
-    this.Turn.getCardObs(obs).subscribe(value => this.isYourTurn = value);
+    this.Turn.getCardObs(obs).subscribe({
+      next: value => this.isYourTurn = value,
+      error: err => this.checkForLose(err)
+    });
 
 
   }

@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from "../../types/card.types";
+import {MessageService} from "primeng/api";
+import {callWarning} from "../../Util/error.util";
 
 @Component({
   selector: 'app-card-holder',
@@ -23,13 +25,13 @@ export class CardHolderComponent implements OnInit {
 
   public onCardClick(index:number){
     if (this.isLoading || !this.isYourTurn){
-      alert("AAA");
+      callWarning(this.msg,"Nicht dein Zug","Du kannst diese Karte erst Spielen wenn es dein Zug ist")
       return;
     }
     this.playCard.emit(index)
   }
 
-  constructor() { }
+  constructor(private msg:MessageService) { }
 
   ngOnInit(): void {
   }

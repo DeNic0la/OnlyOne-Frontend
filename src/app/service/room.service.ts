@@ -5,6 +5,8 @@ import {environment} from "../../environments/environment";
 import {Room} from "./service";
 import {NamelixService} from "./namelix.service";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
+import {callError} from "../Util/error.util";
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +32,10 @@ export class RoomService {
           next: value => {
             this.router.navigate(['lobby',val.id])
           },
-          error: err => {alert("The Room is there but you are not")}
+          error: err => {callError(this.msg,"Etwas ist Schiefgelaufen","Versuchen sie es Später nochmal")}
         })
       },
-      error: (err)=>{alert("Didnt work.... lol")},
+      error: (err)=>{callError(this.msg,"Etwas ist Schiefgelaufen","Versuchen sie es Später nochmal")},
     })
   }
 
@@ -42,7 +44,7 @@ export class RoomService {
   }
 
   public leave(roomId: string|number){
-    return this.requestinator.put(`${this.url}/room/${roomId}`,null)
+    return this.requestinator.put(`${this.url}/room/${roomId}`,null,{headers: this.namenator.header})
   }
-  constructor(private requestinator:HttpClient,private namenator:NamelixService,private router:Router) { }
+  constructor(private requestinator:HttpClient,private namenator:NamelixService,private router:Router, private msg:MessageService) { }
 }
