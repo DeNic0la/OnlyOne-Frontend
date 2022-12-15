@@ -120,6 +120,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   private checkForLose(err:any){
     this.isGameLose().subscribe({ next: value => {
       if (value){
+        console.log(value);
         callWarning(this.msg,"You lost","Du hast das Spiel verloren");
         this.ngOnDestroy();
         this.leaveLobby();
@@ -142,7 +143,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
     if (this.id){
       return this.roomService.Room(this.id).pipe(
         map(value => {return (value.status === "finished")}),
-        catchError(err => {return of(err.status === 404 ||err.status === "404")}),
+        catchError(err => {return of(err?.status === 404 ||err?.status === "404")}),
       )
     }
     return of(false)
