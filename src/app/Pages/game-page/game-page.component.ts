@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card, CardColor, CardNumber} from "../../types/card.types";
 import {ActivatedRoute, Router} from "@angular/router";
 import {getRandomCard} from "../../Util/card.util";
-import {catchError, delay, map, Observable, of, Subscription, tap} from "rxjs";
+import {catchError, delay, distinctUntilChanged, map, Observable, of, Subscription, tap} from "rxjs";
 import {StackService} from "../../service/stack.service";
 import {MessageService} from "primeng/api";
 import {GameService} from "../../service/game.service";
@@ -145,6 +145,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
       return this.roomService.Room(this.id).pipe(
         map(value => {return (value.status === "finished")}),
         catchError(err => {return of(err?.status === 404 ||err?.status === "404")}),
+        distinctUntilChanged()
       )
     }
     return of(false)
