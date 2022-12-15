@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Card, CardColor, CardNumber} from "../../types/card.types";
 import {ActivatedRoute, Router} from "@angular/router";
 import {getRandomCard} from "../../Util/card.util";
-import {catchError, delay, map, Observable, of, tap} from "rxjs";
+import {catchError, delay, map, Observable, of, Subscription, tap} from "rxjs";
 import {StackService} from "../../service/stack.service";
 import {MessageService} from "primeng/api";
 import {GameService} from "../../service/game.service";
@@ -16,7 +16,7 @@ import {callError, callWarning} from "../../Util/error.util";
   templateUrl: './game-page.component.html',
   styleUrls: ['./game-page.component.css']
 })
-export class GamePageComponent implements OnInit {
+export class GamePageComponent implements OnInit, OnDestroy {
 
   public cards:Card[] = [];
 
@@ -29,6 +29,8 @@ export class GamePageComponent implements OnInit {
   public id: string | undefined;
 
   public topCard:Card = {number: undefined, color: undefined};
+
+  private subscription = new Subscription();
 
 
   /**
@@ -147,6 +149,10 @@ export class GamePageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private Stack:StackService, private route:ActivatedRoute, private router:Router,private msg:MessageService, private Game:GameService, private Turn:TurnService,private roomService:RoomService) { }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({cards})=>{
@@ -160,16 +166,20 @@ export class GamePageComponent implements OnInit {
 
     let obs = this.Game.joinGame(this.id);
 
-    //TODO UNSUB
-    this.Stack.getCardObs(obs).subscribe({
-      next: value => this.topCard = value,
-      error: err => this.checkForLose(err)
-    })
+    this.subscription.add(
+      this.Stack.getCardObs(obs).subscribe({
+        next: value => this.topCard = value,
+        error: err => this.checkForLose(err)
+      })
+    )
 
-    this.Turn.getCardObs(obs).subscribe({
-      next: value => this.isYourTurn = value,
-      error: err => this.checkForLose(err)
-    });
+    this.subscription.add(
+      this.Turn.getCardObs(obs).subscribe({
+        next: value => this.isYourTurn = value,
+        error: err => this.checkForLose(err)
+      })
+    )
+
 
 
   }
