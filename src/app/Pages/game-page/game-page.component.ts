@@ -173,8 +173,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.Stack.getCardObs(obs).subscribe({
-        next: value => this.topCard = value,
-        error: err => this.checkForLose(err)
+        next: value => this.topCard = value
       })
     )
 

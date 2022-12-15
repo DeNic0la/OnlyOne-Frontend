@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit, OnDestroy{
     this.sub = interval(5000).pipe(
       startWith(0),
       switchMap(() => this.roomService.Rooms())
-    ).subscribe(res=> {this.rooms = res;})
+    ).subscribe(res=> {this.rooms = res.filter(value => {return value.status === "lobby"});})
   }
 
   ngOnDestroy(): void {

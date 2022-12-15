@@ -22,7 +22,7 @@ export class AppComponent {
       this.loginPopUpOpen = false;
     }
     else {
-      alert("You are such a idiot you dont even deserve a pretty error message");
+      alert("Wähle einen besseren Namen");
     }
 
   }
