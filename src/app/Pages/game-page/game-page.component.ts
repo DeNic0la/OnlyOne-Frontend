@@ -121,6 +121,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.isGameLose().subscribe({ next: value => {
       if (value){
         callWarning(this.msg,"You lost","Du hast das Spiel verloren");
+        this.ngOnDestroy();
+        this.leaveLobby();
 
       }
       else {
